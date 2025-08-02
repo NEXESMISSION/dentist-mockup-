@@ -1,0 +1,527 @@
+import React from 'react';
+
+// Component to add the Google Font "Lora" for an elegant look
+const GoogleFont = () => (
+  <style>
+    {`
+      @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap');
+    `}
+  </style>
+);
+
+
+// --- SVG ICONS ---
+// Using inline SVGs for icons to avoid external dependencies and allow easy styling.
+
+const PhoneIcon = ({ className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+  </svg>
+);
+
+const ChevronDown = ({ className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <polyline points="6 9 12 15 18 9"></polyline>
+  </svg>
+);
+
+const ArrowRight = ({ className }) => (
+    <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        width="16" 
+        height="16" 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        stroke="currentColor" 
+        strokeWidth="2.5" 
+        strokeLinecap="round" 
+        strokeLinejoin="round" 
+        className={className}
+    >
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+    </svg>
+);
+
+
+// --- MAIN HEADER COMPONENT ---
+const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+  const navLinks = [
+    { name: 'Home', href: '#' },
+    { name: 'About us', href: '#' },
+    { name: 'Services', dropdown: true, href: '#' },
+    { name: 'New patient', href: '#' },
+    { name: 'Special offers', dropdown: true, href: '#' },
+    { name: 'Blog', href: '#' },
+  ];
+
+  return (
+    <div className="bg-[#F8F5F1]" style={{ fontFamily: "'Lora', serif" }}>
+      {/* Top decorative border line */}
+      <div className="h-1.5 bg-[#EAE3D9]"></div>
+      
+      <header className="relative shadow-sm">
+        {/* Widened container with responsive padding for a spacious feel */}
+        <div className="mx-auto w-full px-6 sm:px-12 lg:px-24 xl:px-48">
+          {/* Adjusted height for a sleeker look */}
+          <div className="flex items-center justify-between h-24">
+            
+            {/* Logo with responsive font size */}
+            <div className="flex-shrink-0">
+              <a href="#" className="flex items-center">
+                <span className="text-3xl md:text-4xl font-extrabold tracking-tight">
+                    <span style={{color: '#65C9D2'}}>S</span>
+                    <span style={{color: '#F0B93C'}}>m</span>
+                    <span style={{color: '#E67E9A'}}>i</span>
+                    <span style={{color: '#8DC63F'}}>l</span>
+                    <span style={{color: '#F59A62'}}>e</span>
+                    <span className="text-[#5D5D5D]"> Doctors</span>
+                </span>
+              </a>
+            </div>
+
+            {/* Desktop Navigation with more spacing */}
+            <nav className="hidden lg:flex lg:items-center lg:space-x-12">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-lg font-semibold text-[#5D5D5D] hover:text-[#4a4a4a] transition-colors duration-200 flex items-center space-x-1.5 group"
+                >
+                  <span>{link.name}</span>
+                  {link.dropdown && <ChevronDown className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" />}
+                </a>
+              ))}
+            </nav>
+
+            {/* Action Buttons with more spacing and refined sizing */}
+            <div className="hidden lg:flex items-center space-x-5">
+              <button className="p-3 bg-[#EAE3D9] rounded-full text-[#5D5D5D] hover:bg-opacity-80 transition-all duration-300 ease-in-out hover:scale-110">
+                <PhoneIcon className="w-6 h-6" />
+              </button>
+              <button className="flex items-center space-x-3 bg-[#5D4037] text-white px-7 py-3.5 rounded-full font-bold text-md hover:bg-opacity-90 transition-transform duration-300 ease-in-out hover:scale-105">
+                <span>Book Free Consultation</span>
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="lg:hidden">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="inline-flex items-center justify-center p-2 rounded-md text-[#5D5D5D] hover:text-black focus:outline-none"
+              >
+                <span className="sr-only">Open main menu</span>
+                {isMenuOpen ? (
+                  <svg className="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Menu with improved layout */}
+        {isMenuOpen && (
+          <div className="lg:hidden absolute top-full left-0 w-full bg-[#F8F5F1] shadow-lg z-20 border-t border-gray-200">
+            <div className="px-4 pt-4 pb-6 space-y-2">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-[#5D5D5D] hover:bg-[#EAE3D9] hover:text-black block px-4 py-3 rounded-lg text-lg font-semibold"
+                >
+                   <div className="flex items-center justify-between">
+                    <span>{link.name}</span>
+                    {link.dropdown && <ChevronDown className="w-5 h-5" />}
+                   </div>
+                </a>
+              ))}
+               <div className="border-t border-gray-300 mt-5 pt-5 flex flex-col items-center space-y-4">
+                 <button className="w-full flex items-center justify-center space-x-3 bg-[#5D4037] text-white px-8 py-3.5 rounded-full font-bold text-md hover:bg-opacity-90 transition-opacity">
+                    <span>Book Free Consultation</span>
+                    <ArrowRight className="w-5 h-5" />
+                 </button>
+                  <button className="w-full flex items-center justify-center p-3.5 bg-[#EAE3D9] rounded-full text-[#5D5D5D] hover:bg-opacity-80 transition-opacity font-semibold text-lg">
+                    <PhoneIcon className="w-6 h-6" />
+                    <span className="ml-3">Call Us</span>
+                  </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </header>
+    </div>
+  );
+};
+
+
+// --- Main App Component ---
+// This brings everything together.
+export default function App() {
+  return (
+    <div className="w-full">
+      <GoogleFont />
+      <Header />
+      {/* The rest of your page content can go here */}
+      <div className="text-center p-10" style={{ fontFamily: "'Lora', serif" }}>
+        <h1 className="text-4xl font-bold">Your Page Content</h1>
+        <p className="mt-4 text-lg text-gray-600">This is where the rest of your website's content would be displayed.</p>
+      </div>
+    </div>
+  )
+}
+import React, { useState } from 'react';
+
+// --- GOOGLE FONT & ANIMATIONS ---
+const GlobalStyles = () => (
+  <style>
+    {`
+      @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Poppins:wght@400;500&display=swap');
+
+      /* Keyframe animations for floating and wiggling */
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-25px);
+        }
+      }
+
+      @keyframes wiggle {
+        0%, 100% {
+          transform: rotate(-4deg);
+        }
+        50% {
+          transform: rotate(4deg);
+        }
+      }
+      
+      /* Animation utility classes */
+      .animate-float {
+        animation: float 7s ease-in-out infinite;
+      }
+      .animate-wiggle {
+        animation: wiggle 6s ease-in-out infinite;
+      }
+      .animate-float-slow {
+        animation: float 12s ease-in-out infinite;
+      }
+    `}
+  </style>
+);
+
+// --- SVG ICONS ---
+const PlayIcon = ({ className }) => (
+  <svg className={className} viewBox="0 0 100 100" fill="currentColor">
+    <circle cx="50" cy="50" r="48" stroke="white" strokeWidth="4" />
+    <path d="M68 50L42 65V35L68 50Z" />
+  </svg>
+);
+
+const FloatingElementG = ({ className }) => (
+    <svg className={className} viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M96.3335 116.9C83.8335 125.9 67.6668 124.7 56.5002 114.1C43.0002 101.6 42.4002 80.8 54.1002 67.9C65.8002 55 85.9002 52.6 99.7002 62.2C107.8 67.9 112.9 76.3 114.7 85.3" stroke="#D9C8E3" strokeWidth="12" strokeMiterlimit="10" strokeLinecap="round"/>
+        <path d="M125 85.3H87.5" stroke="#D9C8E3" strokeWidth="12" strokeMiterlimit="10" strokeLinecap="round"/>
+    </svg>
+);
+
+const FloatingElementX = ({ className }) => (
+    <svg className={className} viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 15L65 65" stroke="#A9D8E4" strokeWidth="12" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M65 15L15 65" stroke="#A9D8E4" strokeWidth="12" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+);
+
+
+// --- VIDEO POPUP MODAL ---
+const VideoModal = ({ videoId, onClose }) => {
+    return (
+        <div 
+            className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
+            onClick={onClose}
+        >
+            <div 
+                className="relative w-full max-w-4xl aspect-video bg-black rounded-lg overflow-hidden mx-4"
+                onClick={(e) => e.stopPropagation()}
+            >
+                <button 
+                    onClick={onClose}
+                    className="absolute top-2 right-2 text-white text-4xl z-10"
+                >
+                    &times;
+                </button>
+                <iframe
+                    className="w-full h-full"
+                    src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                ></iframe>
+            </div>
+        </div>
+    );
+};
+
+
+// --- HERO SECTION COMPONENT ---
+const HeroSection = () => {
+    const [isVideoOpen, setIsVideoOpen] = useState(false);
+    const youtubeVideoId = "rY4nJ9zB-2E"; // A placeholder dental video
+
+    return (
+        <div className="bg-[#F8F5F1] py-16 md:py-24 relative overflow-hidden">
+            
+            {/* --- Layer 1: Background Floating Elements (Behind Everything) --- */}
+            <FloatingElementG className="w-32 h-32 absolute top-10 left-5 opacity-20 md:w-48 md:h-48 md:top-1/4 md:-translate-x-1/3 animate-float" />
+            <FloatingElementX className="w-20 h-20 absolute bottom-10 right-5 opacity-30 md:w-24 md:h-24 md:bottom-0 md:right-0 md:translate-x-1/4 md:translate-y-1/4 animate-wiggle" />
+            <FloatingElementX className="w-16 h-16 absolute top-20 right-1/4 opacity-20 hidden xl:block animate-float-slow" />
+            <FloatingElementG className="w-20 h-20 absolute bottom-1/4 left-1/4 opacity-10 hidden xl:block animate-wiggle" />
+
+            {/* --- Layer 2: Main Content (Text and Video) --- */}
+            <div className="container mx-auto px-6 lg:px-8 relative z-10">
+                
+                {/* --- Main Heading --- */}
+                <div className="text-center max-w-4xl mx-auto">
+                    <h1 
+                        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#3A3A3A]" 
+                        style={{ fontFamily: "'Lora', serif" }}
+                    >
+                        Your Smile, Our Priority
+                        <br />
+                        Dental Care in <i className="font-serif">Ottawa</i>
+                    </h1>
+                    <p 
+                        className="mt-6 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto"
+                        style={{ fontFamily: "'Poppins', sans-serif" }}
+                    >
+                        Providing expert dental services for all ages in a comfortable, modern, and welcoming environment.
+                    </p>
+                </div>
+
+                {/* --- Video Section --- */}
+                <div className="mt-12 md:mt-16 max-w-5xl mx-auto relative">
+                     {/* --- Layer 3: Foreground Floating Elements (On Top of Video) --- */}
+                    <FloatingElementX className="w-28 h-28 absolute -bottom-10 -left-10 opacity-50 z-20 hidden md:block animate-float-slow" />
+                    <FloatingElementG className="w-24 h-24 absolute -top-10 -right-10 opacity-40 z-20 hidden md:block animate-wiggle" />
+
+                    <div 
+                        className="relative rounded-3xl overflow-hidden shadow-2xl cursor-pointer group z-10"
+                        onClick={() => setIsVideoOpen(true)}
+                    >
+                        {/* Video Thumbnail */}
+                        <img 
+                            src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2070&auto=format&fit=crop" 
+                            alt="Dentist with a patient"
+                            className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        {/* Play Button Overlay */}
+                        <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center transition-opacity duration-300 group-hover:bg-opacity-40">
+                            <PlayIcon className="w-20 h-20 md:w-28 md:h-28 text-white opacity-80 group-hover:opacity-100 transition-opacity duration-300 transform group-hover:scale-110" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* --- Video Modal (Highest Layer) --- */}
+            {isVideoOpen && <VideoModal videoId={youtubeVideoId} onClose={() => setIsVideoOpen(false)} />}
+        </div>
+    );
+};
+
+
+// --- MAIN APP COMPONENT ---
+export default function App() {
+  return (
+    <div className="w-full">
+      <GlobalStyles />
+      <HeroSection />
+    </div>
+  )
+}
+import React, { useRef } from 'react';
+
+// --- GLOBAL STYLES & FONTS ---
+const GlobalStyles = () => (
+  <style>
+    {`
+      @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500&display=swap');
+      
+      .no-scrollbar {
+        scrollbar-width: none;
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+    `}
+  </style>
+);
+
+// --- SVG ICONS ---
+const LeftArrowIcon = ({ className }) => (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+);
+
+const RightArrowIcon = ({ className }) => (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+    </svg>
+);
+
+const ExpandArrowIcon = ({ className }) => (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M7 17L17 7M17 7h-7M17 7v7" />
+    </svg>
+);
+
+// Service-specific Icons
+const GeneralDentistryIcon = ({ className }) => (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M12 2a10 10 0 00-9.98 10.53c.12 5.43 4.56 9.87 9.98 9.98 5.53.11 10.05-4.32 10.02-9.85A10 10 0 0012 2z" />
+        <path d="M16 12a4 4 0 11-8 0 4 4 0 018 0zM12 12h.01" />
+    </svg>
+);
+
+const CosmeticDentistryIcon = ({ className }) => (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+    </svg>
+);
+
+const OrthodonticsIcon = ({ className }) => (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M5 8h14M5 12h14M5 16h14" />
+        <path d="M8 5v14" />
+        <path d="M16 5v14" />
+    </svg>
+);
+
+const DentalImplantIcon = ({ className }) => (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M12 8v8m-4-4h8" />
+        <path d="M12 20a4 4 0 004-4H8a4 4 0 004 4z" />
+        <path d="M12 4a2 2 0 100 4 2 2 0 000-4z" />
+    </svg>
+);
+
+// --- SERVICE CARD COMPONENT ---
+const ServiceCard = ({ icon, title, description }) => (
+    <div className="service-card flex-shrink-0 w-[85vw] max-w-sm sm:w-96 h-96 bg-white/60 backdrop-blur-sm border border-white/30 rounded-3xl shadow-lg p-8 flex flex-col justify-between group transition-all duration-300 ease-in-out hover:bg-white hover:shadow-2xl hover:-translate-y-2 snap-start">
+        <div>
+            <div className="w-16 h-16 text-[#6D5B55]">{icon}</div>
+            <h3 className="mt-5 text-3xl font-bold text-[#3A3A3A]" style={{ fontFamily: "'Lora', serif" }}>{title}</h3>
+            <p className="mt-3 text-gray-600 text-lg" style={{ fontFamily: "'Poppins', sans-serif" }}>{description}</p>
+        </div>
+        <div className="self-end">
+            <div className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center group-hover:bg-[#5D4037] group-hover:border-[#5D4037] transition-all duration-300">
+                <ExpandArrowIcon className="w-6 h-6 text-gray-500 group-hover:text-white" />
+            </div>
+        </div>
+    </div>
+);
+
+// --- SERVICES SECTION COMPONENT ---
+const ServicesSection = () => {
+    const scrollContainerRef = useRef(null);
+
+    const services = [
+        { icon: <GeneralDentistryIcon />, title: "General Dentistry", description: "Comprehensive dental services for all ages in a comfortable, modern, and welcoming environment." },
+        { icon: <CosmeticDentistryIcon />, title: "Cosmetic Dentistry", description: "Transform your smile with teeth whitening, veneers, and other aesthetic treatments." },
+        { icon: <OrthodonticsIcon />, title: "Orthodontics", description: "Straighten your teeth and improve your bite with braces or clear aligners." },
+        { icon: <DentalImplantIcon />, title: "Dental Implants", description: "Restore missing teeth with durable, natural-looking solutions." },
+        { icon: <GeneralDentistryIcon />, title: "Pediatric Dentistry", description: "Specialized, gentle care for your children's dental health from infancy through adolescence." },
+        { icon: <CosmeticDentistryIcon />, title: "Periodontics", description: "Treatment of gum disease and other conditions supporting the teeth." },
+    ];
+
+    const scroll = (direction) => {
+        if (scrollContainerRef.current) {
+            const card = scrollContainerRef.current.querySelector('.service-card');
+            if (!card) return;
+            
+            const cardWidth = card.offsetWidth;
+            const gap = 24; // Corresponds to space-x-6
+            const scrollAmount = direction === 'left' ? -(cardWidth + gap) : (cardWidth + gap);
+            scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    };
+
+    return (
+        <div className="bg-[#F4F0EB] py-20 md:py-28 overflow-hidden">
+            {/* Centered container for the heading */}
+            <div className="container mx-auto px-6 text-center">
+                <h2 className="text-4xl md:text-6xl font-bold text-[#3A3A3A] tracking-tight" style={{ fontFamily: "'Lora', serif" }}>
+                    Comprehensive Dental Services for
+                    <br />
+                    the Whole <i className="font-serif italic">Family</i>
+                </h2>
+            </div>
+            
+            {/* Full-width container for the scrolling cards */}
+            <div className="mt-16">
+                <div 
+                    ref={scrollContainerRef}
+                    className="flex space-x-6 overflow-x-auto pb-10 no-scrollbar snap-x snap-mandatory px-6 sm:px-8 md:px-12 lg:px-16 xl:px-24 scroll-px-6 sm:scroll-px-8 md:scroll-px-12 lg:scroll-px-16 xl:scroll-px-24"
+                >
+                    {services.map((service, index) => (
+                        <ServiceCard key={index} {...service} />
+                    ))}
+                </div>
+            </div>
+
+            {/* Centered container for the navigation arrows */}
+            <div className="container mx-auto px-6 mt-8 flex justify-center space-x-4">
+                <button onClick={() => scroll('left')} className="p-4 bg-white/70 backdrop-blur-sm border border-white/50 text-[#5D4037] rounded-full shadow-md hover:bg-white transition-all duration-300 ease-in-out hover:scale-110">
+                    <LeftArrowIcon className="w-7 h-7" />
+                </button>
+                <button onClick={() => scroll('right')} className="p-4 bg-white/70 backdrop-blur-sm border border-white/50 text-[#5D4037] rounded-full shadow-md hover:bg-white transition-all duration-300 ease-in-out hover:scale-110">
+                    <RightArrowIcon className="w-7 h-7" />
+                </button>
+            </div>
+        </div>
+    );
+};
+
+// --- MAIN APP COMPONENT ---
+export default function App() {
+  return (
+    <div className="w-full bg-[#F8F5F1]">
+      <GlobalStyles />
+      <ServicesSection />
+    </div>
+  )
+}
